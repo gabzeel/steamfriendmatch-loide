@@ -7,7 +7,18 @@ class RightDrawer extends StatelessWidget {
       child: ListView(
         children: <Widget>[
           DrawerHeader(
-            child: Text("CHUPA MEU CU"),
+            child: Center(
+              child: Container(
+                child: Text("Profile"),
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text("Settings"),
+            onTap: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  '/', (Route<dynamic> route) => false);
+            },
           ),
           ListTile(
             title: Text("Logout"),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:streamfriendmatch/components/chat_list.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
 
@@ -15,12 +16,13 @@ class _HomeState extends State<Home> {
     Dashboard(text: 'AA'),
     Dashboard(text: 'BB'),
     Dashboard(text: 'CC'),
+    ChatList(),
   ];
 
-  void _onItemTapped(BuildContext context, int index) {
-    if (index == 3) {
+  void _onItemTapped(int index) {
+    if (index == _screens.length) {
       _scaffoldkey.currentState.openEndDrawer();
-    } else {
+    } else if (_screenIndex != index) {
       setState(() {
         _screenIndex = index;
       });
@@ -33,29 +35,34 @@ class _HomeState extends State<Home> {
       endDrawer: RightDrawer(),
       body: _screens[_screenIndex],
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _screenIndex,
         backgroundColor: Colors.red,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(Icons.home_rounded),
             label: 'Home',
             backgroundColor: Colors.grey,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(Icons.search_rounded),
             label: 'Business',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.person_pin_circle),
+            label: 'Find',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_rounded),
             label: 'School',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Icon(Icons.menu),
             label: 'logout',
           ),
         ],
         selectedItemColor: Colors.amber[800],
         onTap: (index) {
-          _onItemTapped(context, index);
+          _onItemTapped(index);
         },
       ),
     );

@@ -8,18 +8,18 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Steam Friend Match',
-        theme: ThemeData(
-            primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.black),
-        debugShowCheckedModeBanner: false,
-        routes: <String, WidgetBuilder>{
-          "/": (_) => Login(),
-          "/home": (_) => Home(),
-          "/register": (_) => Register(),
-        });
+      title: 'Steam Friend Match',
+      theme: ThemeData(
+          primarySwatch: Colors.blue, scaffoldBackgroundColor: Colors.black),
+      debugShowCheckedModeBanner: false,
+      routes: <String, WidgetBuilder>{
+        "/": (_) => Login(),
+        "/home": (_) => Home(),
+        "/register": (_) => Register(),
+      },
+    );
   }
 }

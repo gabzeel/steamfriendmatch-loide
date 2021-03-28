@@ -11,7 +11,9 @@ class Dashboard extends StatelessWidget {
       child: Container(
         child: Text(
           text,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
     );
