@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamfriendmatch/components/chat_list.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
-import 'package:streamfriendmatch/components/discovery.dart';
+import 'package:streamfriendmatch/components/discover.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
 
 class Home extends StatefulWidget {
@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _screens = [
     Dashboard(text: 'AA'),
-    Discovery(),
+    Discover(),
     Dashboard(text: 'CC'),
     ChatList(),
   ];
