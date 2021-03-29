@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamfriendmatch/components/chat_list.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
+import 'package:streamfriendmatch/components/discovery.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +15,7 @@ class _HomeState extends State<Home> {
 
   final List<Widget> _screens = [
     Dashboard(text: 'AA'),
-    Dashboard(text: 'BB'),
+    Discovery(),
     Dashboard(text: 'CC'),
     ChatList(),
   ];
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search_rounded),
-            label: 'Business',
+            label: 'Discovery',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_pin_circle),
@@ -53,11 +54,11 @@ class _HomeState extends State<Home> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat_bubble_rounded),
-            label: 'School',
+            label: 'Messages',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.menu),
-            label: 'logout',
+            label: 'menu',
           ),
         ],
         selectedItemColor: Colors.amber[800],

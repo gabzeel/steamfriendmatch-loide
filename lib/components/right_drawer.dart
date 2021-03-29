@@ -16,8 +16,10 @@ class RightDrawer extends StatelessWidget {
           ListTile(
             title: Text("Settings"),
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/', (Route<dynamic> route) => false);
+              Navigator.pushNamed(
+                context,
+                '/settings',
+              );
             },
           ),
           ListTile(

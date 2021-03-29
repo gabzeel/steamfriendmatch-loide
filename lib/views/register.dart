@@ -6,6 +6,7 @@ class Register extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
+          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
