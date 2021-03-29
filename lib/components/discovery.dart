@@ -39,7 +39,17 @@ class Discovery extends StatelessWidget {
                     children: <Widget>[
                       TextButton(
                         child: Text('Open'),
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              child: new SimpleDialog(
+                                title: Text('Modal'),
+                                children: [
+                                  Text('1'),
+                                  Text('2'),
+                                ],
+                              ));
+                        },
                       ),
                       SizedBox(width: 8),
                     ],
