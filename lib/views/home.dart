@@ -3,6 +3,7 @@ import 'package:streamfriendmatch/components/chat_list.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
 import 'package:streamfriendmatch/components/discover.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
+import 'package:streamfriendmatch/components/friend_match.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -16,7 +17,7 @@ class _HomeState extends State<Home> {
   final List<Widget> _screens = [
     Dashboard(text: 'AA'),
     Discover(),
-    Dashboard(text: 'CC'),
+    FriendMatch(),
     ChatList(),
   ];
 

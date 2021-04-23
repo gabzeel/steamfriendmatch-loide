@@ -42,13 +42,14 @@ class Discover extends StatelessWidget {
                         onPressed: () {
                           showDialog(
                               context: context,
-                              child: new SimpleDialog(
-                                title: Text('Modal'),
-                                children: [
-                                  Text('1'),
-                                  Text('2'),
-                                ],
-                              ));
+                              builder: (BuildContext context) =>
+                                  const SimpleDialog(
+                                    title: Text('Modal'),
+                                    children: [
+                                      Text('1'),
+                                      Text('2'),
+                                    ],
+                                  ));
                         },
                       ),
                       SizedBox(width: 8),

@@ -29,6 +29,7 @@ class Login extends StatelessWidget {
               ),
               SizedBox(height: 10.0),
               TextField(
+                obscureText: true,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
