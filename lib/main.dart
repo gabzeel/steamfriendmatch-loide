@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:streamfriendmatch/views/chat.dart';
-import 'package:streamfriendmatch/views/home.dart';
-import 'package:streamfriendmatch/views/login.dart';
-import 'package:streamfriendmatch/views/register.dart';
-import 'package:streamfriendmatch/views/settings.dart';
+import 'package:streamfriendmatch/views/chat/chat.dart';
+import 'package:streamfriendmatch/views/home/home.dart';
+import 'package:streamfriendmatch/views/login/login.dart';
+import 'package:streamfriendmatch/views/register/register.dart';
+import 'package:streamfriendmatch/views/settings/settings.dart';
 
 void main() {
   runApp(MyApp());

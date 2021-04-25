@@ -4,8 +4,10 @@ import 'package:streamfriendmatch/components/dashboard.dart';
 import 'package:streamfriendmatch/components/discover.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
 import 'package:streamfriendmatch/components/friend_match.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 class Home extends StatefulWidget {
+  Home({Key key}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }

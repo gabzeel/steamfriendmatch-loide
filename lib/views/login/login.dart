@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  Login({Key key}) : super(key: key);
+  @override
+  _LoginState createState() => new _LoginState();
+}
+
+class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

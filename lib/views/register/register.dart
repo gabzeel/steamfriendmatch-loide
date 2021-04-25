@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
-class Settings extends StatelessWidget {
+class Register extends StatefulWidget {
+  Register({Key key}) : super(key: key);
+  @override
+  _RegisterState createState() => new _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,18 +18,6 @@ class Settings extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SwitchListTile(
-                title: const Text(
-                  'Allow being discovered',
-                  style: TextStyle(color: Colors.white),
-                ),
-                value: true,
-                onChanged: (bool value) {},
-                activeColor: Colors.white,
-                activeTrackColor: Colors.greenAccent,
-                inactiveTrackColor: Colors.grey,
-              ),
-              SizedBox(height: 10.0),
               TextField(
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
@@ -59,6 +54,41 @@ class Settings extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10.0),
+              TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 10),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[700], width: 2),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10.0),
+              TextField(
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                  hintText: 'Confirm Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white, width: 10),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey[700], width: 2),
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                ),
+              ),
               SizedBox(height: 10.0),
               Material(
                 shape: RoundedRectangleBorder(
@@ -67,7 +97,7 @@ class Settings extends StatelessWidget {
                 child: MaterialButton(
                   minWidth: 120,
                   child: Text(
-                    'Save',
+                    'Register',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
@@ -82,7 +112,7 @@ class Settings extends StatelessWidget {
                 child: MaterialButton(
                   minWidth: 120,
                   child: Text(
-                    'Back',
+                    'Cancel',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
