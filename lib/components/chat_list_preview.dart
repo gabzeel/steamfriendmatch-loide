@@ -21,10 +21,7 @@ class ChatListPreview extends StatelessWidget {
         ),
         trailing: Icon(Icons.delete),
         onTap: () {
-          Navigator.pushNamed(
-                context,
-                '/chat',
-              );
+
         },
       ),
     );

@@ -5,6 +5,7 @@ import 'package:streamfriendmatch/components/discover.dart';
 import 'package:streamfriendmatch/components/right_drawer.dart';
 import 'package:streamfriendmatch/components/friend_match.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/views/chat/chat.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
     Dashboard(text: 'AA'),
     Discover(),
     FriendMatch(),
-    ChatList(),
+    Chat(),
   ];
 
   void _onItemTapped(int index) {

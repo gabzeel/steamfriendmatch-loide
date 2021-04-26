@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/views/register/controller.dart';
 
 class Register extends StatefulWidget {
   Register({Key key}) : super(key: key);
@@ -7,7 +8,9 @@ class Register extends StatefulWidget {
   _RegisterState createState() => new _RegisterState();
 }
 
-class _RegisterState extends State<Register> {
+class _RegisterState extends StateMVC<Register> {
+  final RegisterController _con = RegisterController.con;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +37,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                onChanged: (value) => {_con.changeEmail(value)},
               ),
               SizedBox(height: 10.0),
               TextField(
@@ -52,6 +56,7 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                onChanged: (value) => {_con.changeName(value)},
               ),
               SizedBox(height: 10.0),
               TextField(
@@ -70,6 +75,8 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                obscureText: true,
+                onChanged: (value) => {_con.changePassword(value)},
               ),
               SizedBox(height: 10.0),
               TextField(
@@ -88,6 +95,8 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                obscureText: true,
+                onChanged: (value) => {_con.changRepetedPassword(value)},
               ),
               SizedBox(height: 10.0),
               Material(
@@ -101,7 +110,12 @@ class _RegisterState extends State<Register> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {},
+                  onPressed: () => {
+                    _con.createNewUser(() => {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home', (Route<dynamic> route) => false)
+                        })
+                  },
                 ),
               ),
               SizedBox(height: 10.0),

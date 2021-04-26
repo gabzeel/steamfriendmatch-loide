@@ -1,19 +1,15 @@
-import 'package:flutter/material.dart';
-
 class UserModel {
-  double _id;
-  String _email;
-  String _name;
-  String _password;
+  final String id;
+  final String email;
+  final String name;
 
-  double get id => _id;
-  String get email => _email;
-  String get name => _name;
+  UserModel({this.id, this.email, this.name});
 
-  void setter(id, email, name, password) {
-    this._id = id;
-    this._email = email;
-    this._name = name;
-    this._password = password;
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return new UserModel(
+      id: json['id'].toString(),
+      email: json['email'].toString(),
+      name: json['name'].toString(),
+    );
   }
 }

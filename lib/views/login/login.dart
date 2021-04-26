@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/views/login/controller.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -7,7 +8,18 @@ class Login extends StatefulWidget {
   _LoginState createState() => new _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends StateMVC<Login> {
+  final _con = LoginController.con;
+
+  void initState() {
+    super.initState();
+
+    _con.verifyIfUserIsLogged(() => {
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false)
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +45,10 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                onChanged: (value) => {_con.changeEmail(value)},
               ),
               SizedBox(height: 10.0),
               TextField(
-                obscureText: true,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   filled: true,
@@ -52,6 +64,8 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                obscureText: true,
+                onChanged: (value) => {_con.changePassword(value)},
               ),
               SizedBox(height: 10.0),
               Material(
@@ -66,10 +80,10 @@ class _LoginState extends State<Login> {
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(
-                      context,
-                      '/home',
-                    );
+                    _con.getUser(() => {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home', (Route<dynamic> route) => false)
+                        });
                   },
                 ),
               ),
