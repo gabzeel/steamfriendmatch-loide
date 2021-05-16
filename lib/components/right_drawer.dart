@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class RightDrawer extends StatelessWidget {
+  final VoidCallback onLogout;
+
+  RightDrawer({Key key, this.onLogout});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,8 +29,7 @@ class RightDrawer extends StatelessWidget {
           ListTile(
             title: Text("Logout"),
             onTap: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/', (Route<dynamic> route) => false);
+              this.onLogout();
             },
           ),
         ],

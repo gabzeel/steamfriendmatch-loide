@@ -20,8 +20,6 @@ class ChatController extends ControllerMVC {
   List<UserModel> userList = [];
 
   void getAllUsers() async {
-
-
     var prefs = await SharedPreferences.getInstance();
     var jwtToken = prefs.get("tokenjwt").toString();
 
