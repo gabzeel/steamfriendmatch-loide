@@ -25,7 +25,7 @@ class LoginController extends ControllerMVC {
   void verifyIfUserIsLogged(Function() onComplete) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String jwtToken = prefs.get("tokenjwt").toString();
-
+    onComplete();
     if (jwtToken.toString() != 'null') {
       onComplete();
     }
@@ -40,13 +40,14 @@ class LoginController extends ControllerMVC {
 
     var _body = json.encode(params);
 
-    var response = await http.post("http://10.0.2.2:3000/auth/login",
+    var response = await http.post("http://192.168.0.131:3000/auth/login",
         headers: header, body: _body);
 
     Map mapResponse = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> decodedToken = JwtDecoder.decode(mapResponse["token"]);
+      Map<String, dynamic> decodedToken =
+          JwtDecoder.decode(mapResponse["token"]);
       prefs.setString("tokenjwt", mapResponse["token"]);
       prefs.setString("photoKey", decodedToken['user']['photoKey']);
       prefs.setString("username", decodedToken['user']['name']);

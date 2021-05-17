@@ -28,7 +28,7 @@ class ChatController extends ControllerMVC {
     };
 
     var response =
-        await http.get("http://10.0.2.2:3000/users", headers: header);
+        await http.get("http://192.168.0.131:3000/users", headers: header);
 
     List responseJson = json.decode(response.body);
 

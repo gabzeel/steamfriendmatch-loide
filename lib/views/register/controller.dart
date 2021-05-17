@@ -21,16 +21,15 @@ class RegisterController extends ControllerMVC {
   void changePassword(String newPassword) => _password = newPassword;
 
   String _repetedPassword = "";
-  void changRepetedPassword(String repetedPassword) => _repetedPassword = repetedPassword;
+  void changRepetedPassword(String repetedPassword) =>
+      _repetedPassword = repetedPassword;
 
   RegisterController._();
 
   static RegisterController get con => _this;
 
   void createNewUser(Function() onComplete) async {
-    if (_repetedPassword != _password) {
-
-    }
+    if (_repetedPassword != _password) {}
 
     var header = {"Content-Type": "application/json"};
 
@@ -40,7 +39,7 @@ class RegisterController extends ControllerMVC {
 
     var _body = json.encode(params);
 
-    var response = await http.post("http://10.0.2.2:3000/users",
+    var response = await http.post("http://192.168.0.131:3000/users",
         headers: header, body: _body);
 
     Map mapResponse = json.decode(response.body);
