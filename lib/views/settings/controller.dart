@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,25 +20,27 @@ class SettingsController extends ControllerMVC {
   static SettingsController get con => _this;
 
   Future<void> updateUserInfo() async {
-    // var header = {"Content-Type": "application/json"};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jwtToken = prefs.get("tokenjwt").toString();
 
-    // Map params = {"email": username, "password": _password};
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(jwtToken);
 
-    // var prefs = await SharedPreferences.getInstance();
+    final String userId = decodedToken['user']['id'];
 
-    // var _body = json.encode(params);
+    var header = {"Content-Type": "application/json"};
 
-    // var response = await http.post("http://10.0.2.2:3000/auth/login",
-    //     headers: header, body: _body);
+    Map params = {"name": _username};
 
-    // Map mapResponse = json.decode(response.body);
+    var _body = json.encode(params);
+    var response = await http.put("http://10.0.2.2:3000/users/" + userId,
+        headers: header, body: _body);
 
-    // if (response.statusCode == 200) {
-    //   Map<String, dynamic> decodedToken = JwtDecoder.decode(mapResponse["token"]);
-    //   prefs.setString("tokenjwt", mapResponse["token"]);
-    //   prefs.setString("photoKey", decodedToken['user']['photoKey']);
-    // } else {
-    //   return;
-    // }
+    Map mapResponse = json.decode(response.body);
+
+    if (response.statusCode == 200) {
+      await prefs.setString("username", mapResponse["name"]);
+    } else {
+      return;
+    }
   }
 }

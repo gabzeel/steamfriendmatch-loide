@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:streamfriendmatch/components/right_drawer/controller.dart';
+import 'package:streamfriendmatch/views/settings/settings.dart';
 
 import '../camera_image_preview/camera_image_preview.dart';
 
@@ -85,14 +86,17 @@ class _RightDrawerState extends StateMVC<RightDrawer> {
                         },
                       ),
                     ),
-                    FutureBuilder(future: this.profileUsername, builder: (BuildContext context,
-                            AsyncSnapshot<String> snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(snapshot.data);
-                              }
+                    FutureBuilder(
+                      future: this.profileUsername,
+                      builder: (BuildContext context,
+                          AsyncSnapshot<String> snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(snapshot.data);
+                        }
 
-                              return Text("Sem nome");
-                            },)
+                        return Text("Sem nome");
+                      },
+                    )
                   ],
                 ),
               ),
@@ -101,10 +105,16 @@ class _RightDrawerState extends StateMVC<RightDrawer> {
           ListTile(
             title: Text("Settings"),
             onTap: () {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                '/settings',
-              );
+                MaterialPageRoute(
+                  builder: (context) => Settings(),
+                ),
+              ).then((value) {
+                setState(() {
+                  this.profileUsername = RightDrawerController.getProfileUsername();
+                });
+              });
             },
           ),
           ListTile(

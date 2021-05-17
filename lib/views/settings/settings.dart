@@ -57,7 +57,10 @@ class _SettingsState extends StateMVC<Settings> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    await this._con.updateUserInfo();
+                    Navigator.pop(context);
+                  },
                 ),
               ),
               SizedBox(height: 10.0),
@@ -73,7 +76,6 @@ class _SettingsState extends StateMVC<Settings> {
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                   onPressed: () async {
-                    await this._con.updateUserInfo();
                     Navigator.pop(context);
                   },
                 ),
