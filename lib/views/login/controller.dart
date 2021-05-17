@@ -31,7 +31,7 @@ class LoginController extends ControllerMVC {
     }
   }
 
-  void getUser(Function() onComplete) async {
+  Future<bool> login(Function() onComplete) async {
     var header = {"Content-Type": "application/json"};
 
     Map params = {"email": _email, "password": _password};
@@ -51,8 +51,9 @@ class LoginController extends ControllerMVC {
       prefs.setString("photoKey", decodedToken['user']['photoKey']);
       prefs.setString("username", decodedToken['user']['name']);
       onComplete();
+      return true;
     } else {
-      return;
+      return false;
     }
   }
 }

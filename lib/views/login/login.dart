@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/utils/showAlert.dart';
 import 'package:streamfriendmatch/views/login/controller.dart';
 
 class Login extends StatefulWidget {
@@ -79,11 +80,15 @@ class _LoginState extends StateMVC<Login> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
-                    _con.getUser(() => {
+                  onPressed: () async {
+                    bool response = await _con.login(() => {
                           Navigator.of(context).pushNamedAndRemoveUntil(
                               '/home', (Route<dynamic> route) => false)
                         });
+
+                    if (!response) {
+                      showAlert(context);
+                    }
                   },
                 ),
               ),
