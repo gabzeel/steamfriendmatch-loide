@@ -1,6 +1,8 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RightDrawerController extends ControllerMVC {
   factory RightDrawerController(BuildContext context) {
@@ -16,6 +18,17 @@ class RightDrawerController extends ControllerMVC {
 
   static RightDrawerController get con => _this;
   CameraController get camera => _this._cameraController;
+
+  static Future<String> getProfilePhotoUrl() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String photoKey = prefs.get("photoKey").toString();
+    return "http://10.0.2.2:3000/files/" + photoKey;
+  }
+
+  static Future<String> getProfileUsername() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.get("username").toString();
+  }
 
   Future<void> initializeCamera() async {
     final camerasOptions = await availableCameras();

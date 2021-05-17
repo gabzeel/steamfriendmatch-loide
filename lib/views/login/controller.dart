@@ -1,3 +1,4 @@
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -44,12 +45,14 @@ class LoginController extends ControllerMVC {
 
     Map mapResponse = json.decode(response.body);
 
-      print('DDD');
     if (response.statusCode == 200) {
+      Map<String, dynamic> decodedToken = JwtDecoder.decode(mapResponse["token"]);
       prefs.setString("tokenjwt", mapResponse["token"]);
+      prefs.setString("photoKey", decodedToken['user']['photoKey']);
+      prefs.setString("username", decodedToken['user']['name']);
       onComplete();
     } else {
-      return null;
+      return;
     }
   }
 }

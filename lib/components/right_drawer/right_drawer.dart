@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:streamfriendmatch/components/right_drawer/controller.dart';
 
-import '../camera_image_preview.dart';
+import '../camera_image_preview/camera_image_preview.dart';
 
 class RightDrawer extends StatefulWidget {
   final VoidCallback onLogout;
@@ -14,48 +14,88 @@ class RightDrawer extends StatefulWidget {
 
 class _RightDrawerState extends StateMVC<RightDrawer> {
   final RightDrawerController _con = RightDrawerController.con;
+  Future<String> profileUrl;
+  Future<String> profileUsername;
 
   @override
   void initState() {
     super.initState();
+    this.profileUrl = RightDrawerController.getProfilePhotoUrl();
+    this.profileUsername = RightDrawerController.getProfileUsername();
   }
 
-  pushCameraImagePreview(BuildContext context, CameraController cameraController) {
-      Navigator.push(
+  pushCameraImagePreview(
+      BuildContext context, CameraController cameraController) {
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => CameraImagePreview(
           imageController: cameraController,
         ),
       ),
-    );
+    ).then((value) {
+      setState(() {
+        this.profileUrl = RightDrawerController.getProfilePhotoUrl();
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    this.profileUrl = RightDrawerController.getProfilePhotoUrl();
     return Drawer(
       child: ListView(
         children: <Widget>[
           DrawerHeader(
             child: Center(
               child: Container(
-                  child: GestureDetector(
-                onTap: () async {
-                  await _con.initializeCamera();
-                  pushCameraImagePreview(context, _con.camera);
-                },
-                child: CircleAvatar(
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  // backgroundImage: NetworkImage(imagem),
-                  radius: 60.0,
-                  child: Text(
-                    "Profile",
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-                  ),
+                child: ListView(
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () async {
+                        await _con.initializeCamera();
+                        pushCameraImagePreview(context, _con.camera);
+                      },
+                      child: FutureBuilder(
+                        future: profileUrl,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          ImageProvider<Object> backgroundImage;
+                          Text text;
+                          if (snapshot.hasData) {
+                            backgroundImage = NetworkImage(snapshot.data);
+                            text = null;
+                          } else {
+                            backgroundImage = null;
+                            text = null;
+                            text = Text(
+                              "Profile",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
+                            );
+                          }
+
+                          return CircleAvatar(
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.white,
+                            backgroundImage: backgroundImage,
+                            radius: 60.0,
+                            child: text,
+                          );
+                        },
+                      ),
+                    ),
+                    FutureBuilder(future: this.profileUsername, builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                              if (snapshot.hasData) {
+                                return Text(snapshot.data);
+                              }
+
+                              return Text("Sem nome");
+                            },)
+                  ],
                 ),
-              )),
+              ),
             ),
           ),
           ListTile(
