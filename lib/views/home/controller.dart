@@ -14,8 +14,9 @@ class HomeController extends ControllerMVC {
   static HomeController get con => _this;
 
   void loggout(Function() onCompleted) async {
-    var prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.clear();
+
     onCompleted();
   }
 }
