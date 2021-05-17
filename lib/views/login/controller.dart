@@ -25,7 +25,7 @@ class LoginController extends ControllerMVC {
   void verifyIfUserIsLogged(Function() onComplete) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String jwtToken = prefs.get("tokenjwt").toString();
-    onComplete();
+
     if (jwtToken.toString() != 'null') {
       onComplete();
     }

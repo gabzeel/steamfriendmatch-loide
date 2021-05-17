@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Post extends StatelessWidget {
-  Post({this.user, this.userHandle, this.text});
+  Post({this.user, this.userHandle, this.text, this.createdAt});
 
   final String user;
   final String userHandle;
   final String text;
+  final DateTime createdAt;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class Post extends StatelessWidget {
                         color: Colors.white, fontWeight: FontWeight.bold)),
                 Container(
                   margin: EdgeInsets.only(left: 5.0),
-                  child: Text(userHandle + " · 30m",
+                  child: Text(userHandle + " · " + createdAt.toString(),
                       style: TextStyle(color: Colors.grey[400])),
                 )
               ],

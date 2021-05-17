@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:streamfriendmatch/model/PostModel.dart';
+
 class DiscoverController extends ControllerMVC {
   factory DiscoverController(BuildContext context) {
     if (_this == null) _this = new DiscoverController._();
@@ -29,20 +31,36 @@ class DiscoverController extends ControllerMVC {
 
     final String userId = decodedToken['user']['id'];
 
-    Map params = {
-      "content": _content,
-      "userId": userId
-    };
+    Map params = {"content": _content, "userId": userId};
 
     var _body = json.encode(params);
 
-    print(params);
     var response = await http.post("http://10.0.2.2:3000/posts",
         headers: header, body: _body);
 
-    // Map mapResponse = json.decode(response.body);
     if (response.statusCode == 200) {
       onClomplete();
+    } else {
+      return null;
+    }
+  }
+
+  static Future<List<PostModel>> getPosts() async {
+    var header = {"Content-Type": "application/json"};
+    var response =
+        await http.get("http://10.0.2.2:3000/posts", headers: header);
+
+    if (response.statusCode == 200) {
+      Iterable models = json.decode(response.body);
+      List<PostModel> posts = List<PostModel>.from(
+        models.map(
+          (model) {
+            return PostModel.fromJson(model);
+          },
+        ),
+      );
+
+      return posts;
     } else {
       return null;
     }

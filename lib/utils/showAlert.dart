@@ -1,22 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:sweetalert/sweetalert.dart';
 
-void showAlert(BuildContext context) {
+void showAlert(BuildContext context, String message, SweetAlertStyle style) {
   SweetAlert.show(
     context,
-    title: "Just show a message",
-    subtitle: "Sweet alert is pretty",
-    style: SweetAlertStyle.confirm,
-    showCancelButton: true,
-    onPress: (bool isConfirm) {
-      if (isConfirm) {
-        SweetAlert.show(context,
-            style: SweetAlertStyle.success, title: "Success");
-
-        return false;
-      }
-
-      return true;
-    },
+    title: "OPS! Aconteceu um erro",
+    subtitle: message,
+    style: style,
+    confirmButtonText: 'OK',
   );
 }

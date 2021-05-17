@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:streamfriendmatch/utils/showAlert.dart';
 import 'package:streamfriendmatch/views/login/controller.dart';
+import 'package:sweetalert/sweetalert.dart';
 
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
@@ -87,7 +88,7 @@ class _LoginState extends StateMVC<Login> {
                         });
 
                     if (!response) {
-                      showAlert(context);
+                      showAlert(context, 'Erro ao efetuar login', SweetAlertStyle.error);
                     }
                   },
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:streamfriendmatch/components/post/controller.dart';
+import 'package:streamfriendmatch/model/PostModel.dart';
 import 'post.dart';
 
 class Discover extends StatefulWidget {
@@ -11,9 +12,11 @@ class Discover extends StatefulWidget {
 
 class _DiscoverState extends StateMVC<Discover> {
   final _con = DiscoverController.con;
+  Future<List<PostModel>> _posts;
 
   void initState() {
     super.initState();
+    _posts = DiscoverController.getPosts();
   }
 
   @override
@@ -43,11 +46,33 @@ class _DiscoverState extends StateMVC<Discover> {
               ),
             ),
             SizedBox(height: 10.0),
-            Post(
-              user: "Rhuan",
-              userHandle: "@pradoc12",
-              text: "Oliveira",
-            )
+            FutureBuilder(
+              future: _posts,
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<PostModel>> snapshot) {
+                if (!snapshot.hasData) {
+                  return Text('Nothing to show');
+                }
+
+                return Center(
+                  child: Container(
+                    child: Column(
+                        children: snapshot.data
+                            .map(
+                              (post) => new Post(
+                                createdAt: post.createdAt,
+                                user: post.user.name,
+                                userHandle: post.user.email,
+                                text: post.content.length > 0
+                                    ? post.content
+                                    : 'Nothing to show',
+                              ),
+                            )
+                            .toList()),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -67,19 +92,17 @@ class _DiscoverState extends StateMVC<Discover> {
       title: const Text('Criar Post'),
       content: new Container(
         child: TextFormField(
-          minLines:
-              6, // any number you need (It works as the rows for the textarea)
+          minLines: 6,
           keyboardType: TextInputType.multiline,
           maxLines: null,
-          onChanged: (value) => {
-            this._con.changeContent(value)
-          },
+          onChanged: (value) => {this._con.changeContent(value)},
         ),
       ),
       actions: <Widget>[
         new TextButton(
           onPressed: () {
             Navigator.of(context).pop();
+            setState(() {});
           },
           child: const Text("Close"),
         ),
