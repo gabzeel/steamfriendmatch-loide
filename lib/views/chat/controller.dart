@@ -10,7 +10,6 @@ class ChatController extends ControllerMVC {
     if (_this == null) _this = new ChatController._();
     return _this;
   }
-
   static ChatController _this = new ChatController._();
 
   ChatController._();
@@ -23,14 +22,19 @@ class ChatController extends ControllerMVC {
     var prefs = await SharedPreferences.getInstance();
     var jwtToken = prefs.get("tokenjwt").toString();
 
-    var header = {"Content-Type": "application/json", "Authorization": "Baerer " + jwtToken};
+    var header = {
+      "Content-Type": "application/json",
+      "Authorization": "Baerer " + jwtToken
+    };
 
-    var response = await http.get("http://10.0.2.2:3000/users", headers: header);
+    var response =
+        await http.get("http://192.168.0.131:3000/users", headers: header);
 
     List responseJson = json.decode(response.body);
 
     if (response.statusCode == 200) {
-      userList = responseJson.map((user) => new UserModel.fromJson(user)).toList();
+      userList =
+          responseJson.map((user) => new UserModel.fromJson(user)).toList();
     } else {
       return null;
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
-import 'package:streamfriendmatch/components/discover.dart';
+import 'package:streamfriendmatch/components/post/discover.dart';
 import 'package:streamfriendmatch/components/right_drawer/right_drawer.dart';
 import 'package:streamfriendmatch/components/friend_match.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
