@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/views/settings/controller.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key key}) : super(key: key);
   @override
   _SettingsState createState() => _SettingsState();
 }
-class _SettingsState extends State<Settings> {
+class _SettingsState extends StateMVC<Settings> {
+  final _con = SettingsController.con;
+
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,35 +23,6 @@ class _SettingsState extends State<Settings> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SwitchListTile(
-                title: const Text(
-                  'Allow being discovered',
-                  style: TextStyle(color: Colors.white),
-                ),
-                value: true,
-                onChanged: (bool value) {},
-                activeColor: Colors.white,
-                activeTrackColor: Colors.greenAccent,
-                inactiveTrackColor: Colors.grey,
-              ),
-              SizedBox(height: 10.0),
-              TextField(
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                  hintText: 'Email',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 10),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey[700], width: 2),
-                    borderRadius: BorderRadius.circular(32.0),
-                  ),
-                ),
-              ),
               SizedBox(height: 10.0),
               TextField(
                 style: TextStyle(color: Colors.black),
@@ -63,6 +40,9 @@ class _SettingsState extends State<Settings> {
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                onChanged: (value) {
+                  this._con.changeUsername(value);
+                },
               ),
               SizedBox(height: 10.0),
               SizedBox(height: 10.0),
@@ -92,7 +72,8 @@ class _SettingsState extends State<Settings> {
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    await this._con.updateUserInfo();
                     Navigator.pop(context);
                   },
                 ),
