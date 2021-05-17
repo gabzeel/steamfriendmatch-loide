@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:streamfriendmatch/components/chat_list.dart';
 import 'package:streamfriendmatch/components/dashboard.dart';
 import 'package:streamfriendmatch/components/discover.dart';
-import 'package:streamfriendmatch/components/right_drawer.dart';
+import 'package:streamfriendmatch/components/right_drawer/right_drawer.dart';
 import 'package:streamfriendmatch/components/friend_match.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:streamfriendmatch/views/chat/chat.dart';
+import 'package:streamfriendmatch/views/home/controller.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -13,7 +13,8 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends StateMVC<Home> {
+  final HomeController _con = HomeController.con;
   final _scaffoldkey = GlobalKey<ScaffoldState>();
   int _screenIndex = 0;
 
@@ -37,7 +38,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldkey,
-      endDrawer: RightDrawer(),
+      endDrawer: RightDrawer(
+          onLogout: () => {
+                _con.loggout(() => {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/', (Route<dynamic> route) => false)
+                    })
+              }),
       body: _screens[_screenIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _screenIndex,

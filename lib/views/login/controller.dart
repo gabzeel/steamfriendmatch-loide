@@ -22,10 +22,10 @@ class LoginController extends ControllerMVC {
   static LoginController get con => _this;
 
   void verifyIfUserIsLogged(Function() onComplete) async {
-    var prefs = await SharedPreferences.getInstance();
-    var jwtToken = prefs.get("tokenjwt").toString();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String jwtToken = prefs.get("tokenjwt").toString();
 
-    if (jwtToken.isNotEmpty) {
+    if (jwtToken.toString() != 'null') {
       onComplete();
     }
   }
@@ -44,9 +44,9 @@ class LoginController extends ControllerMVC {
 
     Map mapResponse = json.decode(response.body);
 
+      print('DDD');
     if (response.statusCode == 200) {
       prefs.setString("tokenjwt", mapResponse["token"]);
-
       onComplete();
     } else {
       return null;
