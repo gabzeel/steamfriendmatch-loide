@@ -1,7 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:streamfriendmatch/components/post/controller.dart';
 import 'post.dart';
 
-class Discover extends StatelessWidget {
+class Discover extends StatefulWidget {
+  Discover({Key key}) : super(key: key);
+  @override
+  _DiscoverState createState() => new _DiscoverState();
+}
+
+class _DiscoverState extends StateMVC<Discover> {
+  final _con = DiscoverController.con;
+
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,6 +23,7 @@ class Discover extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Column(
           children: <Widget>[
+            SizedBox(height: 20.0),
             TextField(
               style: TextStyle(color: Colors.black),
               decoration: InputDecoration(
@@ -31,7 +46,7 @@ class Discover extends StatelessWidget {
             Post(
               user: "Rhuan",
               userHandle: "@pradoc12",
-              text: "Oliveira OTÁRIO",
+              text: "Oliveira",
             )
           ],
         ),
@@ -56,21 +71,27 @@ class Discover extends StatelessWidget {
               6, // any number you need (It works as the rows for the textarea)
           keyboardType: TextInputType.multiline,
           maxLines: null,
+          onChanged: (value) => {
+            this._con.changeContent(value)
+          },
         ),
       ),
       actions: <Widget>[
-        new FlatButton(
+        new TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+          child: const Text("Close"),
         ),
-        new FlatButton(
-            onPressed: () => createPost(), child: const Text("Post")),
+        new TextButton(
+          onPressed: () => {
+            this._con.createPost(() {
+              Navigator.of(context).pop();
+            })
+          },
+          child: const Text("Post"),
+        ),
       ],
     );
   }
-
-  createPost() {}
 }

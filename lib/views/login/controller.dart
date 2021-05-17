@@ -40,7 +40,7 @@ class LoginController extends ControllerMVC {
 
     var _body = json.encode(params);
 
-    var response = await http.post("http://192.168.0.131:3000/auth/login",
+    var response = await http.post("http://10.0.2.2:3000/auth/login",
         headers: header, body: _body);
 
     Map mapResponse = json.decode(response.body);
