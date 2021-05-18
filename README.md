@@ -1,5 +1,22 @@
 # streamfriendmatch
 
+Esse Projeto consiste em criar uma plataforma para encontrar pessoas que jogam  e querem encontra alguém para poder jogar junto
+
+O APP tem as seguintes funcionalidades:
+
+ 1. Login e Logout utilizando auteticação JWT
+ 2. criação de Posts
+ 3. visualização de Posts
+ 4. Iserir foto de perfil utilizando funcionalidade nativa com a câmera do aparelho
+ 5. Cadastro de usuários para utilização do próprio app
+ 6. Chat (funcionalidade não implementada totalmente)
+ 7. FriendMacht (funcionalidade não implementada no momento)
+ 8. Alteração do nome de perfil.
+
+Para o funcionamento de app é necessario a integração com o backend:
+* https://github.com/gabzeel/steamfriendmatch-debi
+
+
 A new Flutter project.
 
 ## Getting Started
